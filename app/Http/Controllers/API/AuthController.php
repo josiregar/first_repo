@@ -70,4 +70,12 @@ class AuthController extends Controller
             'data' => $user
         ],200);
     }
+
+    // delete user
+    public function deleteUser($id)
+    {
+        $user = User
+            ::where('id', $id)
+            ->delete();
+    }
 }

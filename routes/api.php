@@ -35,3 +35,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 // API get users
 Route::get('/users', [App\Http\Controllers\API\AuthController::class, 'getAllUser']);
+
+// Api delete user
+Route::delete('/users/{id}', [App\Http\Controllers\API\AuthController::class, 'deleteUser']);
