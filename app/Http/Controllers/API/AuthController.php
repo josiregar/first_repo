@@ -59,4 +59,15 @@ class AuthController extends Controller
             'message' => 'You have successfully logged out and the token was successfully deleted'
         ];
     }
+
+    // get all user
+    public function getAllUser()
+    {
+        $user = User::all();
+        return response()->json([
+            'success' => true,
+            'message' => 'Data User',
+            'data' => $user
+        ],200);
+    }
 }
