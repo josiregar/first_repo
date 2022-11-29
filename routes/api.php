@@ -31,7 +31,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // API route for logout user
     Route::post('/logout', [App\Http\Controllers\API\AuthController::class, 'logout']);
+
+    // update user
+    Route::put('/users', [App\Http\Controllers\API\AuthController::class, 'update']);
 });
+    
+
 
 // API get users
 Route::get('/users', [App\Http\Controllers\API\AuthController::class, 'getAllUser']);

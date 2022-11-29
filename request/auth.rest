@@ -1,0 +1,22 @@
+##login
+POST http://127.0.0.1:8000/api/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email" : "saipul@mail.com",
+    "password" : "123456789"
+}
+
+### update user
+PUT http://localhost:8000/api/users
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 3|ck0l0tnldhURde2Krj9X2JMcpp40zQzjiridMapo
+
+{
+    "name" : "saipul",
+    "email" : "saipul@mail.com",
+    "password" : "123456789"
+}
+

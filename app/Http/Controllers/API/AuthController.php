@@ -64,11 +64,16 @@ class AuthController extends Controller
     public function getAllUser()
     {
         $user = User::all();
+        // if user not found
+        if ($user->isEmpty()) {
+            return response()->json([
+                'message' => 'user Kosong'
+            ], 404);
+        }
         return response()->json([
-            'success' => true,
-            'message' => 'Data User',
             'data' => $user
-        ],200);
+        ]);
+
     }
 
     // delete user
@@ -77,5 +82,50 @@ class AuthController extends Controller
         $user = User
             ::where('id', $id)
             ->delete();
+        if ($user) {
+            return response()->json([
+                'success' => true,
+                'message' => 'User Deleted',
+                'data' => $user
+            ],200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'User Not Found',
+                'data' => ''
+            ],404);
+        }
+    
     }
+    // Update user by id
+    public function update (Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string |max:255',
+            'email' => 'required|string|max:255|unique:users,email,'. Auth::user()->id
+
+            ]);
+            if (Auth::check())
+            {
+                if ($request->input('password'))
+                {
+                    $hashed = Hash::make($request->input('password'));
+                    $user = User::find(Auth::user() ->id);
+                    $user->name = $request->input('name');
+                    $user->email = $request->input('email');
+                    $user->password = $hashed;
+                    $user->update();
+                }
+                $user = User::find(Auth::user()->id);
+                $user->name = $request->input('name');
+                $user->email = $request->input('email');
+                $user->update();
+
+
+            }
+            return response()->json([
+                'massage' =>'update sukses'
+            ]);
+    }
+
 }
